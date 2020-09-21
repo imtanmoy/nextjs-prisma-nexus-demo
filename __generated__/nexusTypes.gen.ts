@@ -3,11 +3,16 @@
  * Do not make changes to this file directly
  */
 
+import * as Context from "./src/context"
 
 
 
-
-
+declare global {
+  interface NexusGenCustomOutputProperties<TypeName extends string> {
+    crud: NexusPrisma<TypeName, 'crud'>
+    model: NexusPrisma<TypeName, 'model'>
+  }
+}
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
@@ -28,7 +33,14 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenRootTypes {
+  Mutation: {};
   Query: {};
+  User: { // root type
+    email: string; // String!
+    id: number; // Int!
+    name: string; // String!
+    password: string; // String!
+  }
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
@@ -40,12 +52,28 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
+  Mutation: { // field return type
+    signup: NexusGenRootTypes['User']; // User!
+  }
   Query: { // field return type
     hello: string; // String!
+  }
+  User: { // field return type
+    email: string; // String!
+    id: number; // Int!
+    name: string; // String!
+    password: string; // String!
   }
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    signup: { // args
+      email?: string | null; // String
+      name?: string | null; // String
+      password?: string | null; // String
+    }
+  }
   Query: {
     hello: { // args
       name?: string | null; // String
@@ -58,7 +86,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Query";
+export type NexusGenObjectNames = "Mutation" | "Query" | "User";
 
 export type NexusGenInputNames = never;
 
@@ -71,7 +99,7 @@ export type NexusGenScalarNames = "Boolean" | "Float" | "ID" | "Int" | "String";
 export type NexusGenUnionNames = never;
 
 export interface NexusGenTypes {
-  context: any;
+  context: Context.Context;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   argTypes: NexusGenArgTypes;
