@@ -6,6 +6,9 @@ export interface Context {
   prisma: PrismaClient;
 }
 
-export function createContext(): Context {
+export const createContext = ({ req, connection, res }): Context => {
+  // console.log(req);
+  // console.log(connection);
+  // console.log(res);
   return { prisma };
-}
+};
