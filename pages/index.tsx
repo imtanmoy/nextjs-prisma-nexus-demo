@@ -1,6 +1,7 @@
 import React from "react";
 import Link from 'next/link';
 import styled from 'styled-components';
+import {Layout} from "antd";
 
 const Title = styled.h1`
   font-size: 50px;
@@ -9,14 +10,14 @@ const Title = styled.h1`
 
 
 const IndexPage = () => (
-    <div>
+    <Layout>
         <Title>Hello Next.js 👋</Title>
         <p>
             <Link href="/about">
                 <a>About</a>
             </Link>
         </p>
-    </div>
+    </Layout>
 )
 
 export default IndexPage;
