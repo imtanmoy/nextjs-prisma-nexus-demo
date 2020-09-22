@@ -7,6 +7,7 @@ import BasicLayout from "../layouts/BasicLayout";
 import { useSignup } from "../src/graphql/auth";
 import { SignupInput } from "../src/types/auth";
 import { User } from "../src/types/user";
+import { ApolloError } from "@apollo/client";
 
 const Div = styled.div`
   height: 100%;
@@ -20,39 +21,29 @@ const cardStyle = {
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
 };
 
-export interface SignupErrors {
-  name: string | null;
-  email: string | null;
-  password: string | null;
-}
-
 const SignupPage = () => {
   const router = useRouter();
-  const [validationErrors, setValidationErrors] = useState<SignupErrors>({
-    name: null,
-    email: null,
-    password: null,
-  });
+  const [validationErrors, setValidationErrors] = useState<
+    Record<string, string>
+  >({});
 
   const { handleSignup, loading } = useSignup({
     onComplete: (res: User) => {
       router.push("/login");
     },
-    onError: (err) => {
+    onError: (err: ApolloError) => {
       message.error(err.message);
-      if (err.graphQLErrors[0].extensions.code === "BAD_USER_INPUT") {
-        setValidationErrors({
-          name: err.graphQLErrors[0].extensions.name
-            ? err.graphQLErrors[0].extensions.name
-            : null,
-          email: err.graphQLErrors[0].extensions.email
-            ? err.graphQLErrors[0].extensions.email
-            : null,
-          password: err.graphQLErrors[0].extensions.password
-            ? err.graphQLErrors[0].extensions.password
-            : null,
-        });
-      }
+      const { graphQLErrors } = err;
+      graphQLErrors.map(({ extensions }) => {
+        const verror = {};
+        if (extensions.code === "BAD_USER_INPUT") {
+          const { errors } = extensions;
+          errors.map(({ key, message }) => {
+            verror[key] = [message];
+          });
+          setValidationErrors(verror);
+        }
+      });
     },
   });
   const onSubmit = (input: SignupInput) => {

@@ -2,7 +2,6 @@ import { Button, Checkbox, Form, Input, Tooltip } from "antd";
 import React from "react";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { SignupInput } from "../../src/types/auth";
-import { SignupErrors } from "../../pages/signup";
 import createFieldsError from "../../src/utils";
 
 const formItemLayout = {
@@ -31,7 +30,7 @@ const tailFormItemLayout = {
 interface Props {
   onSubmit: (input: SignupInput) => void;
   submitting: boolean;
-  validationErrors: SignupErrors;
+  validationErrors: Record<string, string>;
 }
 
 const SignupForm: React.FC<Props> = ({
