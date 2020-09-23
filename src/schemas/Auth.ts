@@ -1,7 +1,19 @@
 import { mutationType, stringArg } from "@nexus/schema";
 import { ObjectDefinitionBlock } from "@nexus/schema/dist/definitions/objectType";
 import { UserInputError } from "apollo-server-errors";
-import validator from "validator";
+import * as yup from "yup";
+import { formatYupError } from "./utils";
+
+const emailNotLongEnough = "email must be at least 3 characters";
+const nameNotLongEnough = "name must be at least 3 characters";
+const passwordNotLongEnough = "password must be at least 8 characters";
+const invalidEmail = "email must be a valid email";
+
+const signupValidator = yup.object().shape({
+  name: yup.string().min(3, nameNotLongEnough).max(100),
+  email: yup.string().min(3, emailNotLongEnough).max(100).email(invalidEmail),
+  password: yup.string().min(8, passwordNotLongEnough).max(100),
+});
 
 export const AuthMutation = mutationType({
   definition(t: ObjectDefinitionBlock<"Mutation">) {
@@ -14,42 +26,17 @@ export const AuthMutation = mutationType({
         password: stringArg(),
       },
       resolve: async (_root, { name, email, password }, ctx) => {
-        let errors = [];
+        let errors: Array<{ key: string; message: string }> = [];
 
-        if (name === null || email === undefined || email === "") {
-          errors.push({
-            key: "name",
-            message: "Name must not be empty.",
-          });
+        try {
+          await signupValidator.validate(
+            { name, email, password },
+            { abortEarly: false }
+          );
+        } catch (err) {
+          errors = formatYupError(err);
         }
 
-        if (email === null || email === undefined) {
-          errors.push({
-            key: "email",
-            message: "The email address must not be empty.",
-          });
-        } else if (!validator.isLength(email, { max: 250 })) {
-          errors.push({
-            key: "email",
-            message: "The email must be at a maximum 250 characters long.",
-          });
-        } else if (!validator.isEmail(email)) {
-          errors.push({
-            key: "email",
-            message: "The email is not valid.",
-          });
-        }
-        if (password === null || password === undefined) {
-          errors.push({
-            key: "password",
-            message: "The password filed must not be empty.",
-          });
-        } else if (!validator.isLength(password, { min: 6 })) {
-          errors.push({
-            key: "password",
-            message: "The password must be at a minimum 6 characters long.",
-          });
-        }
         if (errors.length)
           throw new UserInputError("Validation error", { errors });
 
