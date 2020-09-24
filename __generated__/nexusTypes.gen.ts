@@ -61,11 +61,15 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User']; // User!
   }
   Mutation: { // field return type
+    deleteUserById: NexusGenRootTypes['User']; // User!
     login: NexusGenRootTypes['JwtAuthUser']; // JwtAuthUser!
     signup: NexusGenRootTypes['User']; // User!
+    updateUserById: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
-    hello: string; // String!
+    allUsers: NexusGenRootTypes['User'][]; // [User!]!
+    getMe: NexusGenRootTypes['User']; // User!
+    userById: NexusGenRootTypes['User']; // User!
   }
   User: { // field return type
     email: string; // String!
@@ -77,6 +81,9 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    deleteUserById: { // args
+      id?: number | null; // Int
+    }
     login: { // args
       email?: string | null; // String
       password?: string | null; // String
@@ -86,10 +93,14 @@ export interface NexusGenArgTypes {
       name?: string | null; // String
       password?: string | null; // String
     }
+    updateUserById: { // args
+      id?: number | null; // Int
+      name?: string | null; // String
+    }
   }
   Query: {
-    hello: { // args
-      name?: string | null; // String
+    userById: { // args
+      id?: number | null; // Int
     }
   }
 }
