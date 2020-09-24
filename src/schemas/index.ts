@@ -2,7 +2,7 @@ import { queryType, makeSchema, stringArg, objectType } from "@nexus/schema";
 import { nexusSchemaPrisma } from "nexus-plugin-prisma/schema";
 import { ObjectDefinitionBlock } from "@nexus/schema/dist/definitions/objectType";
 import path from "path";
-import { User } from "./User";
+import { User, JwtAuthUser } from "./allTypes";
 import { AuthMutation } from "./Auth";
 
 const Query = queryType({
@@ -15,7 +15,7 @@ const Query = queryType({
 });
 
 export const schema = makeSchema({
-  types: { Query, User, AuthMutation },
+  types: { Query, User, JwtAuthUser, AuthMutation },
   plugins: [nexusSchemaPrisma({ experimentalCRUD: true })],
   outputs: {
     schema: path.join(process.cwd(), "__generated__/schema.gen.graphql"),

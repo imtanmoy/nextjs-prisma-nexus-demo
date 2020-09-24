@@ -33,6 +33,10 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenRootTypes {
+  JwtAuthUser: { // root type
+    token: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+  }
   Mutation: {};
   Query: {};
   User: { // root type
@@ -52,7 +56,12 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
+  JwtAuthUser: { // field return type
+    token: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+  }
   Mutation: { // field return type
+    login: NexusGenRootTypes['JwtAuthUser']; // JwtAuthUser!
     signup: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
@@ -68,6 +77,10 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    login: { // args
+      email?: string | null; // String
+      password?: string | null; // String
+    }
     signup: { // args
       email?: string | null; // String
       name?: string | null; // String
@@ -86,7 +99,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Mutation" | "Query" | "User";
+export type NexusGenObjectNames = "JwtAuthUser" | "Mutation" | "Query" | "User";
 
 export type NexusGenInputNames = never;
 

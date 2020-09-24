@@ -2,7 +2,13 @@
 ### Do not make changes to this file directly
 
 
+type JwtAuthUser {
+  token: String!
+  user: User!
+}
+
 type Mutation {
+  login(email: String, password: String): JwtAuthUser!
   signup(email: String, name: String, password: String): User!
 }
 
