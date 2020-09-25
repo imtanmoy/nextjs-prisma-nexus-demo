@@ -1,4 +1,4 @@
-import { FieldData } from "rc-field-form/es/interface";
+import { FieldData } from 'rc-field-form/es/interface';
 
 const createFieldsError = (errs: Record<string, string>): FieldData[] => {
   const tempErrors: FieldData[] = [];

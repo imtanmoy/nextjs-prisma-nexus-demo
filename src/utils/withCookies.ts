@@ -1,18 +1,19 @@
-import { serialize } from "cookie";
+import { serialize } from 'cookie';
 
 /**
  * This sets `cookie` on `res` object
  */
 const cookie = (res, name, value, options = {}) => {
   const stringValue =
-    typeof value === "object" ? "j:" + JSON.stringify(value) : String(value);
+    typeof value === 'object' ? 'j:' + JSON.stringify(value) : String(value);
 
-  if ("maxAge" in options) {
+  if ('maxAge' in options) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     options.expires = new Date(Date.now() + options.maxAge);
   }
 
-  res.setHeader("Set-Cookie", serialize(name, String(stringValue), options));
+  res.setHeader('Set-Cookie', serialize(name, String(stringValue), options));
 };
 
 /**

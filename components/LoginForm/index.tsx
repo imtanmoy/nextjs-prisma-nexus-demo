@@ -1,7 +1,9 @@
-import React from "react";
-import { Button, Checkbox, Form, Input } from "antd";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { LoginInput } from "../../src/types/auth";
+import React from 'react';
+import { Button, Form, Input } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import Link from 'next/link';
+
+import { LoginInput } from '../../src/types/auth';
 
 interface Props {
   onSubmit: (input: LoginInput) => void;
@@ -9,11 +11,7 @@ interface Props {
   validationErrors: Record<string, string>;
 }
 
-const LoginForm: React.FC<Props> = ({
-  onSubmit,
-  submitting,
-  validationErrors,
-}) => {
+const LoginForm: React.FC<Props> = ({ onSubmit, submitting }) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -27,7 +25,7 @@ const LoginForm: React.FC<Props> = ({
     <Form name="login-form" form={form} onFinish={onFinish}>
       <Form.Item
         name="email"
-        rules={[{ required: true, message: "Please input your email!" }]}
+        rules={[{ required: true, message: 'Please input your email!' }]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
@@ -36,7 +34,7 @@ const LoginForm: React.FC<Props> = ({
       </Form.Item>
       <Form.Item
         name="password"
-        rules={[{ required: true, message: "Please input your Password!" }]}
+        rules={[{ required: true, message: 'Please input your Password!' }]}
       >
         <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
@@ -54,7 +52,7 @@ const LoginForm: React.FC<Props> = ({
         >
           Log in
         </Button>
-        Or <a href="">register now!</a>
+        Or <Link href="/signup">register now!</Link>
       </Form.Item>
     </Form>
   );

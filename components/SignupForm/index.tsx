@@ -1,8 +1,10 @@
-import { Button, Checkbox, Form, Input, Tooltip } from "antd";
-import React from "react";
-import { QuestionCircleOutlined } from "@ant-design/icons";
-import { SignupInput } from "../../src/types/auth";
-import createFieldsError from "../../src/utils";
+import { Button, Checkbox, Form, Input, Tooltip } from 'antd';
+import React from 'react';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import Link from 'next/link';
+
+import { SignupInput } from '../../src/types/auth';
+import createFieldsError from '../../src/utils';
 
 const formItemLayout = {
   labelCol: {
@@ -83,7 +85,7 @@ const SignupForm: React.FC<Props> = ({
         rules={[
           {
             required: true,
-            message: "Please input your name!",
+            message: 'Please input your name!',
             whitespace: true,
           },
         ]}
@@ -96,12 +98,12 @@ const SignupForm: React.FC<Props> = ({
         label="E-mail"
         rules={[
           {
-            type: "email",
-            message: "The input is not valid E-mail!",
+            type: 'email',
+            message: 'The input is not valid E-mail!',
           },
           {
             required: true,
-            message: "Please input your E-mail!",
+            message: 'Please input your E-mail!',
           },
         ]}
       >
@@ -114,7 +116,7 @@ const SignupForm: React.FC<Props> = ({
         rules={[
           {
             required: true,
-            message: "Please input your password!",
+            message: 'Please input your password!',
           },
         ]}
         hasFeedback
@@ -125,20 +127,20 @@ const SignupForm: React.FC<Props> = ({
       <Form.Item
         name="confirm"
         label="Confirm Password"
-        dependencies={["password"]}
+        dependencies={['password']}
         hasFeedback
         rules={[
           {
             required: true,
-            message: "Please confirm your password!",
+            message: 'Please confirm your password!',
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
-              if (!value || getFieldValue("password") === value) {
+              if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
               return Promise.reject(
-                "The two passwords that you entered do not match!"
+                'The two passwords that you entered do not match!'
               );
             },
           }),
@@ -155,13 +157,13 @@ const SignupForm: React.FC<Props> = ({
             validator: (_, value) =>
               value
                 ? Promise.resolve()
-                : Promise.reject("Should accept agreement"),
+                : Promise.reject('Should accept agreement'),
           },
         ]}
         {...tailFormItemLayout}
       >
         <Checkbox>
-          I have read the <a href="">agreement</a>
+          I have read the <Link href="/login">agreement</Link>
         </Checkbox>
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>

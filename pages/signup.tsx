@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import SignupForm from "../components/SignupForm";
-import { Card, message } from "antd";
-import { useRouter } from "next/router";
-import BasicLayout from "../layouts/BasicLayout";
-import { useSignup } from "../src/graphql/auth";
-import { SignupInput } from "../src/types/auth";
-import { User } from "../src/types/user";
-import { ApolloError } from "@apollo/client";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import SignupForm from '../components/SignupForm';
+import { Card, message } from 'antd';
+import { useRouter } from 'next/router';
+import BasicLayout from '../layouts/BasicLayout';
+import { useSignup } from '../src/graphql/auth';
+import { SignupInput } from '../src/types/auth';
+import { User } from '../src/types/user';
+import { ApolloError } from '@apollo/client';
 
 const Div = styled.div`
   height: 100%;
@@ -18,10 +18,10 @@ const Div = styled.div`
 `;
 
 const cardStyle = {
-  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+  boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
 };
 
-const SignupPage = () => {
+const SignupPage: React.FC = () => {
   const router = useRouter();
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>
@@ -29,14 +29,14 @@ const SignupPage = () => {
 
   const { handleSignup, loading } = useSignup({
     onComplete: (res: User) => {
-      router.push("/login");
+      router.push('/login');
     },
     onError: (err: ApolloError) => {
       message.error(err.message);
       const { graphQLErrors } = err;
       graphQLErrors.map(({ extensions }) => {
         const verror = {};
-        if (extensions.code === "BAD_USER_INPUT") {
+        if (extensions.code === 'BAD_USER_INPUT') {
           const { errors } = extensions;
           errors.map(({ key, message }) => {
             verror[key] = [message];

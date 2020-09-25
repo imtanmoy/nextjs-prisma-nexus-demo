@@ -1,11 +1,11 @@
-import React from "react";
-import Link from "next/link";
-import styled from "styled-components";
-import { Layout } from "antd";
-import { useRouter } from "next/router";
-import { gql, useQuery } from "@apollo/client";
-import { initializeApollo } from "../src/lib/apollo";
-import { GetServerSideProps } from "next";
+import React from 'react';
+import Link from 'next/link';
+import styled from 'styled-components';
+import { Layout } from 'antd';
+import { useRouter } from 'next/router';
+import { gql, useQuery } from '@apollo/client';
+import { initializeApollo } from '../src/lib/apollo';
+import { GetServerSideProps } from 'next';
 
 const Title = styled.h1`
   font-size: 50px;
@@ -18,13 +18,13 @@ const MyQuery = gql`
   }
 `;
 
-const IndexPage = () => {
+const IndexPage: React.FC = () => {
   const router = useRouter();
-  let { name } = router.query;
+  const { name } = router.query;
 
   const { data, loading } = useQuery<string, { name: string }>(MyQuery, {
     variables: {
-      name: name ? (typeof name === "string" ? name : name[0].toString()) : "",
+      name: name ? (typeof name === 'string' ? name : name[0].toString()) : '',
     },
     skip: !name,
     // variables: { name: "Banik" },
@@ -56,7 +56,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   await apolloClient.query<string, { name: string }>({
     query: MyQuery,
     variables: {
-      name: name ? (typeof name === "string" ? name : name[0].toString()) : "",
+      name: name ? (typeof name === 'string' ? name : name[0].toString()) : '',
       // name: "Tanmoy",
     },
   });

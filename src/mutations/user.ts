@@ -1,13 +1,13 @@
-import { intArg, mutationField, stringArg } from "@nexus/schema";
+import { intArg, mutationField, stringArg } from '@nexus/schema';
 
-export const UpdateUserById = mutationField("updateUserById", {
-  type: "User",
+export const UpdateUserById = mutationField('updateUserById', {
+  type: 'User',
   args: {
     id: intArg({
-      description: "id of the user",
+      description: 'id of the user',
     }),
     name: stringArg({
-      description: "new name of the user",
+      description: 'new name of the user',
     }),
   },
   resolve: async (root, { id, name }, ctx) => {
@@ -17,7 +17,7 @@ export const UpdateUserById = mutationField("updateUserById", {
       },
     });
     if (!user) {
-      throw new Error("user not found");
+      throw new Error('user not found');
     }
     return await ctx.prisma.user.update({
       where: {
@@ -30,11 +30,11 @@ export const UpdateUserById = mutationField("updateUserById", {
   },
 });
 
-export const DeleteUserById = mutationField("deleteUserById", {
-  type: "User",
+export const DeleteUserById = mutationField('deleteUserById', {
+  type: 'User',
   args: {
     id: intArg({
-      description: "id of the user",
+      description: 'id of the user',
     }),
   },
   resolve: async (root, { id }, ctx) => {
@@ -44,7 +44,7 @@ export const DeleteUserById = mutationField("deleteUserById", {
       },
     });
     if (!user) {
-      throw new Error("user not found");
+      throw new Error('user not found');
     }
     return await ctx.prisma.user.delete({
       where: {

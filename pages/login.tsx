@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Card } from "antd";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Card } from 'antd';
 
-import LoginForm from "../components/LoginForm";
-import BasicLayout from "../layouts/BasicLayout";
-import { useRouter } from "next/router";
-import { useLogin } from "../src/graphql/auth";
-import { JwtUser, LoginInput } from "../src/types/auth";
-import { FetchResult } from "apollo-link";
-import { ApolloError } from "@apollo/client";
+import LoginForm from '../components/LoginForm';
+import BasicLayout from '../layouts/BasicLayout';
+import { useRouter } from 'next/router';
+import { useLogin } from '../src/graphql/auth';
+import { JwtUser, LoginInput } from '../src/types/auth';
+import { FetchResult } from 'apollo-link';
+import { ApolloError } from '@apollo/client';
 
 const Div = styled.div`
   height: 100%;
@@ -19,10 +19,10 @@ const Div = styled.div`
 `;
 
 const cardStyle = {
-  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+  boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
 };
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
   const router = useRouter();
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>

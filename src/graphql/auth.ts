@@ -1,7 +1,7 @@
-import { gql, useMutation } from "@apollo/client";
-import { JwtUser, LoginInput, SignupInput } from "../types/auth";
-import { User } from "../types/user";
-import { OnCompleteFn, OnErrorFn } from "./index";
+import { gql, useMutation } from '@apollo/client';
+import { JwtUser, LoginInput, SignupInput } from '../types/auth';
+import { User } from '../types/user';
+import { OnCompleteFn, OnErrorFn } from './index';
 
 export const SIGNUP = gql`
   mutation Signup($name: String!, $email: String!, $password: String!) {

@@ -1,11 +1,11 @@
-import { mutationField, stringArg } from "@nexus/schema";
+import { mutationField, stringArg } from '@nexus/schema';
 import {
   signup as signupResolver,
   login as loginResolver,
-} from "../resolvers/mutations/auth";
+} from '../resolvers/mutations/auth';
 
-export const signup = mutationField("signup", {
-  type: "User",
+export const signup = mutationField('signup', {
+  type: 'User',
   args: {
     name: stringArg(),
     email: stringArg(),
@@ -14,8 +14,8 @@ export const signup = mutationField("signup", {
   resolve: signupResolver,
 });
 
-export const login = mutationField("login", {
-  type: "JwtAuthUser",
+export const login = mutationField('login', {
+  type: 'JwtAuthUser',
   nullable: false,
   args: {
     email: stringArg(),

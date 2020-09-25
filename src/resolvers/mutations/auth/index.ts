@@ -2,17 +2,17 @@ import {
   comparePassword,
   formatYupError,
   hashPassword,
-} from "../../../schemas/utils";
-import { UserInputError } from "apollo-server-errors";
-import * as yup from "yup";
-import * as jwt from "jsonwebtoken";
+} from '../../../schemas/utils';
+import { UserInputError } from 'apollo-server-errors';
+import * as yup from 'yup';
+import * as jwt from 'jsonwebtoken';
 
-const SECRET_KEY = "secret!";
+const SECRET_KEY = 'secret!';
 
-const emailNotLongEnough = "email must be at least 3 characters";
-const nameNotLongEnough = "name must be at least 3 characters";
-const passwordNotLongEnough = "password must be at least 8 characters";
-const invalidEmail = "email must be a valid email";
+const emailNotLongEnough = 'email must be at least 3 characters';
+const nameNotLongEnough = 'name must be at least 3 characters';
+const passwordNotLongEnough = 'password must be at least 8 characters';
+const invalidEmail = 'email must be a valid email';
 
 const signupValidator = yup.object().shape({
   name: yup.string().min(3, nameNotLongEnough).max(100),
@@ -25,7 +25,11 @@ const loginValidator = yup.object().shape({
   password: yup.string().min(8, passwordNotLongEnough).max(100),
 });
 
-export const signup = async (_root, { name, email, password }, ctx) => {
+export const signup = async (
+  _root,
+  { name, email, password },
+  ctx
+): Promise<any> => {
   let errors: Array<{ key: string; message: string }> = [];
 
   try {
@@ -37,7 +41,7 @@ export const signup = async (_root, { name, email, password }, ctx) => {
     errors = formatYupError(err);
   }
 
-  if (errors.length) throw new UserInputError("Validation error", { errors });
+  if (errors.length) throw new UserInputError('Validation error', { errors });
 
   const user = await ctx.prisma.user.findOne({
     where: {
@@ -47,11 +51,11 @@ export const signup = async (_root, { name, email, password }, ctx) => {
 
   if (user) {
     errors.push({
-      key: "email",
-      message: "user with this email already exist",
+      key: 'email',
+      message: 'user with this email already exist',
     });
     if (errors.length)
-      throw new UserInputError("User already exists", { errors });
+      throw new UserInputError('User already exists', { errors });
   }
 
   const hashedPassword = await hashPassword(password);
@@ -74,7 +78,7 @@ export const login = async (_root, { email, password }, ctx) => {
     errors = formatYupError(err);
   }
 
-  if (errors.length) throw new UserInputError("Validation error", { errors });
+  if (errors.length) throw new UserInputError('Validation error', { errors });
 
   const user = await ctx.prisma.user.findOne({
     where: {
@@ -83,23 +87,23 @@ export const login = async (_root, { email, password }, ctx) => {
   });
 
   if (!user) {
-    throw new Error("login credentials does not match");
+    throw new Error('login credentials does not match');
   }
 
   const valid = await comparePassword(password, user.password);
 
   if (!valid) {
-    throw new Error("login credentials does not match");
+    throw new Error('login credentials does not match');
   }
 
   const token = jwt.sign({ email: user.email, id: user.id }, SECRET_KEY, {
-    expiresIn: "1d",
+    expiresIn: '1d',
   });
 
-  ctx.res.cookie("token", token, {
-    path: "/",
+  ctx.res.cookie('token', token, {
+    path: '/',
     // httpOnly: true,
-    sameSite: "strict",
+    sameSite: 'strict',
     maxAge: 60 * 60 * 24 * 7,
   });
 
