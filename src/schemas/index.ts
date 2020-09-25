@@ -1,26 +1,15 @@
 import { makeSchema } from "@nexus/schema";
 import { nexusSchemaPrisma } from "nexus-plugin-prisma/schema";
 import path from "path";
-import { User, JwtAuthUser } from "./allTypes";
-import { AuthMutation } from "./Auth";
-import {
-  DeleteUserById,
-  FindAllUsers,
-  FindUserById,
-  GetMe,
-  UpdateUserById,
-} from "./User";
+import allTypes from "./allTypes";
+import mutations from "../mutations";
+import queries from "../queries";
 
 export const schema = makeSchema({
   types: {
-    User,
-    JwtAuthUser,
-    AuthMutation,
-    GetMe,
-    FindUserById,
-    FindAllUsers,
-    UpdateUserById,
-    DeleteUserById,
+    allTypes,
+    mutations,
+    queries,
   },
   plugins: [nexusSchemaPrisma({ experimentalCRUD: true })],
   outputs: {

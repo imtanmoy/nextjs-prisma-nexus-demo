@@ -5,6 +5,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from "@apollo/client";
+import { ApolloLink } from "apollo-link";
 
 export type ResolverContext = {
   req?: IncomingMessage;
@@ -12,6 +13,16 @@ export type ResolverContext = {
 };
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
+
+const authMiddleware = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      Authorization: localStorage.getItem("token") || null,
+    },
+  });
+
+  return forward(operation);
+});
 
 function createIsomorphLink(context: ResolverContext = {}) {
   if (typeof window === "undefined") {

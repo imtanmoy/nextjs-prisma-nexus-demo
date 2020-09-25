@@ -1,5 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import { SignupInput } from "../types/auth";
+import { JwtUser, LoginInput, SignupInput } from "../types/auth";
 import { User } from "../types/user";
 import { OnCompleteFn, OnErrorFn } from "./index";
 
@@ -9,6 +9,19 @@ export const SIGNUP = gql`
       id
       name
       email
+    }
+  }
+`;
+
+export const LOGIN = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      user {
+        id
+        name
+        email
+      }
     }
   }
 `;
@@ -42,5 +55,27 @@ export const useSignup = ({
     error,
     loading,
     handleSignup,
+  };
+};
+
+export const useLogin = () => {
+  const [handler, { data, loading, error }] = useMutation<
+    { login: JwtUser },
+    LoginInput
+  >(LOGIN);
+
+  const handleLogin = async (input: LoginInput) => {
+    return await handler({
+      variables: {
+        email: input.email,
+        password: input.password,
+      },
+    });
+  };
+  return {
+    data,
+    error,
+    loading,
+    handleLogin,
   };
 };
