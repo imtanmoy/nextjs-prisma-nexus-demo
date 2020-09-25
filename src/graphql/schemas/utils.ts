@@ -1,5 +1,5 @@
-import { ValidationError } from "yup";
-import * as bcrypt from "bcryptjs";
+import { ValidationError } from 'yup';
+import * as bcrypt from 'bcryptjs';
 
 export const formatYupError = (err: ValidationError) => {
   const errors: Array<{ key: string; message: string }> = [];

@@ -3,8 +3,8 @@ import React from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
-import { SignupInput } from '../../src/types/auth';
-import createFieldsError from '../../src/utils';
+import { SignupInput } from '../../types/auth';
+import createFieldsError from '../../utils';
 
 const formItemLayout = {
   labelCol: {

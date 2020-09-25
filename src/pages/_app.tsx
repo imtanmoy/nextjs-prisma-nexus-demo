@@ -3,7 +3,7 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from '@apollo/client';
 import 'antd/dist/antd.css';
-import { useApollo } from '../src/lib/apollo';
+import { useApollo } from '../lib/apollo';
 import GlobalStyle from '../components/GlobalStyle';
 
 const theme = {

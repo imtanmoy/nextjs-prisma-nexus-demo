@@ -4,9 +4,9 @@ import SignupForm from '../components/SignupForm';
 import { Card, message } from 'antd';
 import { useRouter } from 'next/router';
 import BasicLayout from '../layouts/BasicLayout';
-import { useSignup } from '../src/graphql/auth';
-import { SignupInput } from '../src/types/auth';
-import { User } from '../src/types/user';
+import { useSignup } from '../data/auth';
+import { SignupInput } from '../types/auth';
+import { User } from '../types/user';
 import { ApolloError } from '@apollo/client';
 
 const Div = styled.div`

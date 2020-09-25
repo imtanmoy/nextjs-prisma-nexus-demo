@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Layout } from 'antd';
 import { useRouter } from 'next/router';
 import { gql, useQuery } from '@apollo/client';
-import { initializeApollo } from '../src/lib/apollo';
+import { initializeApollo } from '../lib/apollo';
 import { GetServerSideProps } from 'next';
 
 const Title = styled.h1`

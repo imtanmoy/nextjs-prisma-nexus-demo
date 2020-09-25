@@ -3,14 +3,12 @@
  * Do not make changes to this file directly
  */
 
-import * as Context from "./src/context/index"
-
-
+import * as Context from './src/graphql/context/index';
 
 declare global {
   interface NexusGenCustomOutputProperties<TypeName extends string> {
-    crud: NexusPrisma<TypeName, 'crud'>
-    model: NexusPrisma<TypeName, 'model'>
+    crud: NexusPrisma<TypeName, 'crud'>;
+    model: NexusPrisma<TypeName, 'model'>;
   }
 }
 
@@ -18,33 +16,33 @@ declare global {
   interface NexusGen extends NexusGenTypes {}
 }
 
-export interface NexusGenInputs {
-}
+export interface NexusGenInputs {}
 
-export interface NexusGenEnums {
-}
+export interface NexusGenEnums {}
 
 export interface NexusGenScalars {
-  String: string
-  Int: number
-  Float: number
-  Boolean: boolean
-  ID: string
+  String: string;
+  Int: number;
+  Float: number;
+  Boolean: boolean;
+  ID: string;
 }
 
 export interface NexusGenRootTypes {
-  JwtAuthUser: { // root type
+  JwtAuthUser: {
+    // root type
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
-  }
+  };
   Mutation: {};
   Query: {};
-  User: { // root type
+  User: {
+    // root type
     email: string; // String!
     id: number; // Int!
     name: string; // String!
     password: string; // String!
-  }
+  };
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
@@ -56,61 +54,69 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
-  JwtAuthUser: { // field return type
+  JwtAuthUser: {
+    // field return type
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
-  }
-  Mutation: { // field return type
+  };
+  Mutation: {
+    // field return type
     deleteUserById: NexusGenRootTypes['User']; // User!
     login: NexusGenRootTypes['JwtAuthUser']; // JwtAuthUser!
     signup: NexusGenRootTypes['User']; // User!
     updateUserById: NexusGenRootTypes['User']; // User!
-  }
-  Query: { // field return type
+  };
+  Query: {
+    // field return type
     allUsers: NexusGenRootTypes['User'][]; // [User!]!
     getMe: NexusGenRootTypes['User']; // User!
     userById: NexusGenRootTypes['User']; // User!
-  }
-  User: { // field return type
+  };
+  User: {
+    // field return type
     email: string; // String!
     id: number; // Int!
     name: string; // String!
     password: string; // String!
-  }
+  };
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    deleteUserById: { // args
+    deleteUserById: {
+      // args
       id?: number | null; // Int
-    }
-    login: { // args
+    };
+    login: {
+      // args
       email?: string | null; // String
       password?: string | null; // String
-    }
-    signup: { // args
+    };
+    signup: {
+      // args
       email?: string | null; // String
       name?: string | null; // String
       password?: string | null; // String
-    }
-    updateUserById: { // args
+    };
+    updateUserById: {
+      // args
       id?: number | null; // Int
       name?: string | null; // String
-    }
-  }
+    };
+  };
   Query: {
-    userById: { // args
+    userById: {
+      // args
       id?: number | null; // Int
-    }
-  }
+    };
+  };
 }
 
-export interface NexusGenAbstractResolveReturnTypes {
-}
+export interface NexusGenAbstractResolveReturnTypes {}
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "JwtAuthUser" | "Mutation" | "Query" | "User";
+export type NexusGenObjectNames = 'JwtAuthUser' | 'Mutation' | 'Query' | 'User';
 
 export type NexusGenInputNames = never;
 
@@ -118,7 +124,7 @@ export type NexusGenEnumNames = never;
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "Float" | "ID" | "Int" | "String";
+export type NexusGenScalarNames = 'Boolean' | 'Float' | 'ID' | 'Int' | 'String';
 
 export type NexusGenUnionNames = never;
 
@@ -136,19 +142,28 @@ export interface NexusGenTypes {
   interfaceNames: NexusGenInterfaceNames;
   scalarNames: NexusGenScalarNames;
   unionNames: NexusGenUnionNames;
-  allInputTypes: NexusGenTypes['inputNames'] | NexusGenTypes['enumNames'] | NexusGenTypes['scalarNames'];
-  allOutputTypes: NexusGenTypes['objectNames'] | NexusGenTypes['enumNames'] | NexusGenTypes['unionNames'] | NexusGenTypes['interfaceNames'] | NexusGenTypes['scalarNames'];
-  allNamedTypes: NexusGenTypes['allInputTypes'] | NexusGenTypes['allOutputTypes']
+  allInputTypes:
+    | NexusGenTypes['inputNames']
+    | NexusGenTypes['enumNames']
+    | NexusGenTypes['scalarNames'];
+  allOutputTypes:
+    | NexusGenTypes['objectNames']
+    | NexusGenTypes['enumNames']
+    | NexusGenTypes['unionNames']
+    | NexusGenTypes['interfaceNames']
+    | NexusGenTypes['scalarNames'];
+  allNamedTypes:
+    | NexusGenTypes['allInputTypes']
+    | NexusGenTypes['allOutputTypes'];
   abstractTypes: NexusGenTypes['interfaceNames'] | NexusGenTypes['unionNames'];
   abstractResolveReturn: NexusGenAbstractResolveReturnTypes;
 }
 
-
 declare global {
-  interface NexusGenPluginTypeConfig<TypeName extends string> {
-  }
-  interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
-  }
-  interface NexusGenPluginSchemaConfig {
-  }
+  interface NexusGenPluginTypeConfig<TypeName extends string> {}
+  interface NexusGenPluginFieldConfig<
+    TypeName extends string,
+    FieldName extends string
+  > {}
+  interface NexusGenPluginSchemaConfig {}
 }

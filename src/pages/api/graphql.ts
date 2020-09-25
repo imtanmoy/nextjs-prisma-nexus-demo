@@ -1,7 +1,7 @@
 import { ApolloServer } from 'apollo-server-micro';
-import { schema } from 'src/schemas';
-import { createContext } from '../../src/context';
-import withCookies from '../../src/utils/withCookies';
+import { schema } from 'src/graphql/schemas';
+import { createContext } from '../../graphql/context';
+import withCookies from '../../utils/withCookies';
 
 const apolloServer = new ApolloServer({
   schema: schema,

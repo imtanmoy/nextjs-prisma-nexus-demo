@@ -3,7 +3,7 @@ import { Button, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
-import { LoginInput } from '../../src/types/auth';
+import { LoginInput } from '../../types/auth';
 
 interface Props {
   onSubmit: (input: LoginInput) => void;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { useMemo } from 'react';
 import { IncomingMessage, ServerResponse } from 'http';
 import {
@@ -27,7 +28,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 function createIsomorphLink(context: ResolverContext = {}) {
   if (typeof window === 'undefined') {
     const { SchemaLink } = require('@apollo/client/link/schema');
-    const { schema } = require('../schemas');
+    const { schema } = require('../graphql/schemas');
     return new SchemaLink({ schema, context });
   } else {
     const { HttpLink } = require('@apollo/client');

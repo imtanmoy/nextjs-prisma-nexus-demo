@@ -9,9 +9,14 @@ export interface Context {
   res: ServerResponse;
 }
 
-export const createContext = ({ req, connection, res }): Context => {
-  // console.log(req);
-  // console.log(connection);
-  // console.log(res);
+export const createContext = ({
+  req,
+  connection,
+  res,
+}: {
+  res: any;
+  connection: any;
+  req: any;
+}): Context => {
   return { prisma, req, res };
 };

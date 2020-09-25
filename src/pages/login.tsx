@@ -5,8 +5,8 @@ import { Card } from 'antd';
 import LoginForm from '../components/LoginForm';
 import BasicLayout from '../layouts/BasicLayout';
 import { useRouter } from 'next/router';
-import { useLogin } from '../src/graphql/auth';
-import { JwtUser, LoginInput } from '../src/types/auth';
+import { useLogin } from '../data/auth';
+import { JwtUser, LoginInput } from '../types/auth';
 import { FetchResult } from 'apollo-link';
 import { ApolloError } from '@apollo/client';
 
