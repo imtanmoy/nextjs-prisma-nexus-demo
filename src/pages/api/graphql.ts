@@ -4,7 +4,7 @@ import { createContext } from '../../graphql/context';
 import withCookies from '../../utils/withCookies';
 
 const apolloServer = new ApolloServer({
-  schema: schema,
+  schema,
   context: createContext,
   tracing: process.env.NODE_ENV === 'development',
 });

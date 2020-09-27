@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { JwtUser, LoginInput, SignupInput } from '../types/auth';
 import { User } from '../types/user';
 import { OnCompleteFn, OnErrorFn } from './index';
@@ -77,5 +77,26 @@ export const useLogin = () => {
     error,
     loading,
     handleLogin,
+  };
+};
+
+export const GETME = gql`
+  {
+    getMe {
+      id
+      name
+      email
+    }
+  }
+`;
+
+export const useProfile = () => {
+  const { data, loading, error, refetch } = useQuery<string, User>(GETME);
+
+  return {
+    data,
+    loading,
+    error,
+    refetch,
   };
 };
