@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.2.0",
+    "@apollo/react-ssr": "^4.0.0",
     "@nexus/schema": "^0.15.0",
     "antd": "^4.6.5",
     "apollo-server-micro": "^2.17.0",

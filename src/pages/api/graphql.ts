@@ -7,6 +7,10 @@ const apolloServer = new ApolloServer({
   schema,
   context: createContext,
   tracing: process.env.NODE_ENV === 'development',
+  formatError: (error) => {
+    console.log('Error Response', error);
+    return error;
+  },
 });
 
 const handler = apolloServer.createHandler({ path: '/api/graphql' });

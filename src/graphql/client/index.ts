@@ -1,34 +1,23 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { useMemo } from 'react';
-import { IncomingMessage, ServerResponse } from 'http';
 import {
   ApolloClient,
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client';
-import { ApolloLink } from 'apollo-link';
+import { useMemo } from 'react';
+import { IncomingMessage, ServerResponse } from 'http';
 
 export type ResolverContext = {
   req?: IncomingMessage;
   res?: ServerResponse;
 };
 
-let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
-
-const authMiddleware = new ApolloLink((operation, forward) => {
-  operation.setContext({
-    headers: {
-      Authorization: localStorage.getItem('token') || null,
-    },
-  });
-
-  return forward(operation);
-});
+let apolloClient: ApolloClient<NormalizedCacheObject> = null;
 
 function createIsomorphLink(context: ResolverContext = {}) {
   if (typeof window === 'undefined') {
     const { SchemaLink } = require('@apollo/client/link/schema');
-    const { schema } = require('../graphql/schemas');
+    const { schema } = require('../schemas');
     return new SchemaLink({ schema, context });
   } else {
     const { HttpLink } = require('@apollo/client');

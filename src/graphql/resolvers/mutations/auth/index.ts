@@ -6,6 +6,7 @@ import {
 import { UserInputError } from 'apollo-server-errors';
 import * as yup from 'yup';
 import * as jwt from 'jsonwebtoken';
+import { GetGen, RootValue } from '@nexus/schema/dist/typegenTypeHelpers';
 
 const SECRET_KEY = 'secret!';
 
@@ -26,9 +27,9 @@ const loginValidator = yup.object().shape({
 });
 
 export const signup = async (
-  _root,
+  _root: RootValue<'Mutation'>,
   { name, email, password },
-  ctx
+  ctx: GetGen<'context'>
 ): Promise<any> => {
   let errors: Array<{ key: string; message: string }> = [];
 
@@ -69,7 +70,12 @@ export const signup = async (
   });
 };
 
-export const login = async (_root, { email, password }, ctx) => {
+export const login = async (
+  _root: RootValue<'Mutation'>,
+  { email, password },
+  ctx: GetGen<'context'>
+) => {
+  // console.log(ctx);
   let errors: Array<{ key: string; message: string }> = [];
 
   try {
