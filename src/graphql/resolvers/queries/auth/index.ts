@@ -9,6 +9,7 @@ export const GetMeResolver = async (
   args: ArgsValue<'Query', string>,
   ctx: GetGen<'context'>
 ): Promise<any> => {
+  console.log(ctx.req.cookies);
   return await ctx.prisma.user.findOne({
     where: {
       id: 1,

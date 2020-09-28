@@ -2,7 +2,7 @@ import React from 'react';
 import BasicLayout from '../layouts/BasicLayout';
 import { GETME, useProfile } from '../data/auth';
 import { initializeApollo } from '../graphql/client';
-import { GetStaticProps, GetStaticPropsContext, NextPage } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next';
 
 const ProfilePage: NextPage = () => {
   const { data, loading, error } = useProfile();
@@ -21,10 +21,12 @@ const ProfilePage: NextPage = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
 ) => {
-  const apolloClient = initializeApollo();
+  const { req, res } = context;
+
+  const apolloClient = initializeApollo({ req, res });
 
   await apolloClient.query({
     query: GETME,
