@@ -33,6 +33,7 @@ const LoginPage: React.FC = () => {
     handleLogin(input)
       .then((res) => {
         console.log(res.data.login);
+        router.push('/profile');
       })
       .catch((err: ApolloError) => {
         console.log(err.message);

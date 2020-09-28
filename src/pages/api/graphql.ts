@@ -7,6 +7,11 @@ const apolloServer = new ApolloServer({
   schema,
   context: createContext,
   tracing: process.env.NODE_ENV === 'development',
+  playground: {
+    settings: {
+      'request.credentials': 'include',
+    },
+  },
 });
 
 const handler = apolloServer.createHandler({ path: '/api/graphql' });
