@@ -2,9 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { Layout } from 'antd';
-import { useRouter } from 'next/router';
-import { gql, useQuery } from '@apollo/client';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { initializeApollo } from '../graphql/client';
 
 const Title = styled.h1`
@@ -12,26 +10,7 @@ const Title = styled.h1`
   color: ${({ theme }) => theme.colors.primary};
 `;
 
-const MyQuery = gql`
-  query Hello($name: String!) {
-    hello(name: $name)
-  }
-`;
-
-const IndexPage: React.FC = () => {
-  const router = useRouter();
-  const { name } = router.query;
-
-  const { data, loading } = useQuery<string, { name: string }>(MyQuery, {
-    variables: {
-      name: name ? (typeof name === 'string' ? name : name[0].toString()) : '',
-    },
-    skip: !name,
-    // variables: { name: "Banik" },
-  });
-
-  if (loading) return <span>loading...</span>;
-
+const IndexPage: NextPage = () => {
   return (
     <Layout>
       <Title>Hello Next.js 👋</Title>
@@ -40,9 +19,7 @@ const IndexPage: React.FC = () => {
           <a>About</a>
         </Link>
       </p>
-      <div>
-        <pre>{JSON.stringify(data, null, 2)}</pre>
-      </div>
+      <div></div>
     </Layout>
   );
 };
@@ -50,16 +27,7 @@ const IndexPage: React.FC = () => {
 export default IndexPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { name } = context.query;
   const apolloClient = initializeApollo();
-
-  await apolloClient.query<string, { name: string }>({
-    query: MyQuery,
-    variables: {
-      name: name ? (typeof name === 'string' ? name : name[0].toString()) : '',
-      // name: "Tanmoy",
-    },
-  });
 
   return {
     props: {

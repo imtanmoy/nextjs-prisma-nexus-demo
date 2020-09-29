@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { IncomingMessage, ServerResponse } from 'http';
 import { verify } from 'jsonwebtoken';
+import { send } from 'micro';
 
 const prisma = new PrismaClient({ log: ['query'] });
 
@@ -20,23 +21,30 @@ export interface Context {
 
 export const createContext = ({
   req,
-  connection,
   res,
 }: {
-  res: any;
-  connection: any;
   req: any;
+  res: any;
 }): Context => {
   const { token } = req.cookies;
-  let user: ContextUser = undefined;
+  let user: ContextUser;
 
   if (token) {
     try {
       const decoded = verify(token, SECRET_KEY);
-      user = {
-        id: decoded['id'],
-        email: decoded['email'],
-      };
+      const prismaUser = prisma.user.findOne({
+        where: {
+          id: decoded['id'],
+        },
+      });
+      if (prismaUser) {
+        user = {
+          id: decoded['id'],
+          email: decoded['email'],
+        };
+      } else {
+        send(res, 401, { message: 'invalid token: user not found' });
+      }
     } catch (err) {
       console.log(err);
     }

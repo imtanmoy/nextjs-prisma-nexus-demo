@@ -1,4 +1,4 @@
-import { serialize } from 'cookie';
+import { serialize, parse } from 'cookie';
 
 /**
  * This sets `cookie` on `res` object
@@ -21,6 +21,14 @@ const cookie = (res, name, value, options = {}) => {
  */
 const withCookies = (handler) => (req, res) => {
   res.cookie = (name, value, options) => cookie(res, name, value, options);
+  if (req.headers && req.headers.cookie) {
+    try {
+      req.cookies = parse(req.headers.cookie);
+    } catch (err) {
+      console.warn('Could not parse cookie', req.headers.cookie);
+      console.error(err);
+    }
+  }
   return handler(req, res);
 };
 
