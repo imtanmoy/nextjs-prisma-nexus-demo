@@ -1,25 +1,22 @@
 import React from 'react';
-import Link from 'next/link';
-import styled from 'styled-components';
 import { Layout } from 'antd';
 import { GetServerSideProps, NextPage } from 'next';
 import { initializeApollo } from '../graphql/client';
+import Header from '../components/Header';
+import Menu from '../components/Menu';
+import Footer from '../components/Footer';
 
-const Title = styled.h1`
-  font-size: 50px;
-  color: ${({ theme }) => theme.colors.primary};
-`;
+const { Content, Header: AntHeader, Footer: AntFooter } = Layout;
 
 const IndexPage: NextPage = () => {
   return (
     <Layout>
-      <Title>Hello Next.js 👋</Title>
-      <p>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-      </p>
-      <div></div>
+      <Header />
+      <Menu />
+      <Layout>
+        <Content>main content</Content>
+      </Layout>
+      <Footer />
     </Layout>
   );
 };

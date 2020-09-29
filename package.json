@@ -22,6 +22,7 @@
     "nexus-plugin-prisma": "^0.19.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-icons": "^3.11.0",
     "styled-components": "^5.2.0",
     "yup": "^0.29.3"
   },
